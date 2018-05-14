@@ -7,6 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "UserDao.h"
 
 @interface CoreDataDemoTests : XCTestCase
 
@@ -24,9 +25,12 @@
     [super tearDown];
 }
 
-- (void)testExample {
-    // This is an example of a functional test case.
-    // Use XCTAssert and related functions to verify your tests produce the correct results.
+- (void)testDefault {
+
+}
+
+- (void)testAsync {
+
 }
 
 - (void)testPerformanceExample {
