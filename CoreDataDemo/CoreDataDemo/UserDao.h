@@ -11,9 +11,15 @@
 
 /// 用户dao类型
 typedef NS_ENUM(NSInteger, UserDaoType) {
-    UserDaoDefault  = 0,
-    UserDaoAsync    = 1,
-    UserDaoMR       = 2
+    UserDaoDefault          = 0,
+    UserDaoMultithreading   = 1,
+    UserDaoMR               = 2
+};
+
+/// 多线程方案
+typedef NS_ENUM(NSInteger, UserDao_MultithreadingPlan) {
+    UserDao_MultithreadingPlan1 = 1,
+    UserDao_MultithreadingPlan2
 };
 
 /// 用户dao
@@ -22,7 +28,9 @@ typedef NS_ENUM(NSInteger, UserDaoType) {
 @end
 
 /// 用户dao 使用多线程异步执行
-@interface UserDao_Async : UserDao
+@interface UserDao_Multithreading : UserDao
+
+@property (nonatomic, assign) UserDao_MultithreadingPlan plan;
 
 @end
 

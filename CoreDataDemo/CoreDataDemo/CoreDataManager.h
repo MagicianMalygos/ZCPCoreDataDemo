@@ -15,6 +15,19 @@
 @property (nonatomic, strong) NSPersistentStoreCoordinator *psc;
 @property (nonatomic, strong) NSManagedObjectContext *moc;
 
-- (void)saveContext;
+- (void)saveContext:(NSManagedObjectContext *)context;
+
+#pragma mark - plan 1
+
+@property (nonatomic, strong) NSManagedObjectContext *mainMOC_Plan1;
+
+- (NSManagedObjectContext *)createPrivateMOC_Plan1;
+
+#pragma mark - plan 2
+
+@property (nonatomic, strong) NSManagedObjectContext *rootMOC_Plan2;
+@property (nonatomic, strong) NSManagedObjectContext *mainMOC_Plan2;
+
+- (NSManagedObjectContext *)createPrivateMOC_Plan2;
 
 @end

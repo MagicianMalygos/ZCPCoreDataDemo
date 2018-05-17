@@ -19,6 +19,8 @@
 @property (nonatomic, strong) CoreDataManager *manager;
 @property (nonatomic, strong) UserDao *dao;
 
+@property (nonatomic, assign) int testInt;
+
 @end
 
 @implementation ViewController
@@ -37,18 +39,24 @@
     NSString *userName  = self.userNameTextField.text;
     if (userID.length == 0 || userName.length == 0) return;
     
-//    [self.dao createWithParams:@{@"id": userID, @"name": userName}];
+//    [self.dao createWithParams:@{@"id": userID, @"name": userName} completion:^(NSError *error) {
+//        if (error) {
+//            NSLog(@"添加失败, error:%@", error);
+//        }
+//    }];
     
-    for (int i = 0; i < 100; i++) {
+    NSMutableArray *arr = [NSMutableArray array];
+    for (int i = 0; i < 1000; i++) {
         userID = [NSString stringWithFormat:@"%i", i];
         userName = [NSString stringWithFormat:@"名字%i", i];
-        
-        [self.dao createWithParams:@{@"id": userID, @"name": userName} completion:^(NSError *error) {
-            if (error) {
-                NSLog(@"添加失败, error:%@", error);
-            }
-        }];
+//        [arr addObject:@{@"id": userID, @"name": userName}];
+        [arr addObject:@{@"id": @"111", @"name": @"aaa"}];
     }
+    [self.dao createWithArray:arr completion:^(NSError *error) {
+        if (error) {
+            NSLog(@"添加失败, error:%@", error);
+        }
+    }];
 }
 
 - (IBAction)clickDeleteButton {
@@ -81,7 +89,7 @@
             return;
         }
     }];
-
+    
     // 在控制台打印结果
     NSLog(@"共查询到%li条记录", resultArray.count);
     for (User *user in resultArray) {
@@ -90,10 +98,6 @@
 }
 
 - (IBAction)clickRetrieveAllButton {
-    // 获取textfield内容
-    NSString *userID = self.userIDTextField.text;
-    if (userID.length == 0) return;
-    
     NSArray *resultArray = [self.dao retrieveAll:^(NSError *error) {
         if (error) {
             NSLog(@"查询失败, error:%@", error);
@@ -132,7 +136,7 @@
 
 - (UserDao *)dao {
     if (!_dao) {
-        _dao = [UserDaoFactory createWithType:UserDaoAsync];
+        _dao = [UserDaoFactory createWithType:UserDaoMultithreading];
     }
     return _dao;
 }

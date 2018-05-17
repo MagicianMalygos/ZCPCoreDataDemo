@@ -21,6 +21,13 @@ typedef void(^DaoCompletionBlock)(NSError *error);
 - (void)createWithParams:(NSDictionary *)params completion:(DaoCompletionBlock)completion;
 
 /**
+ 新增多条记录
+
+ @param array 一组数据
+ */
+- (void)createWithArray:(NSArray *)array completion:(DaoCompletionBlock)completion;
+
+/**
  删除指定记录
 
  @param idString 记录ID
