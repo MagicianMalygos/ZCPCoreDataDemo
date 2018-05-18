@@ -7,7 +7,6 @@
 //
 
 #import "CoreDataManager.h"
-#import "NSManagedObjectContext+Category.h"
 
 @implementation CoreDataManager
 
@@ -88,23 +87,22 @@
 - (NSManagedObjectContext *)createPrivateMOC_Plan1 {
     NSManagedObjectContext *privateMOC = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
     [privateMOC setPersistentStoreCoordinator:self.psc];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(contextDidSave:) name:NSManagedObjectContextDidSaveNotification object:privateMOC];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(contextDidSave:) name:NSManagedObjectContextDidSaveNotification object:privateMOC];
     return privateMOC;
 }
 
-- (void)contextDidSave:(NSNotification *)notification {
-    id object = notification.object;
-    if (object == self.mainMOC_Plan1) {
-        [self.mainMOC_Plan1 mergeChangesFromContextDidSaveNotification:notification];
-    }
-}
+//- (void)contextDidSave:(NSNotification *)notification {
+//    id object = notification.object;
+//    if (object == self.mainMOC_Plan1) {
+//        [self.mainMOC_Plan1 mergeChangesFromContextDidSaveNotification:notification];
+//    }
+//}
 
 #pragma mark - Multithreading Plan 2
 
 - (NSManagedObjectContext *)rootMOC_Plan2 {
     if (!_rootMOC_Plan2) {
         _rootMOC_Plan2 = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-//        [_rootMOC_Plan2 setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy]; // TODO:
         [_rootMOC_Plan2 setPersistentStoreCoordinator:self.psc];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(contextWillSave:) name:NSManagedObjectContextWillSaveNotification object:_rootMOC_Plan2];
     }

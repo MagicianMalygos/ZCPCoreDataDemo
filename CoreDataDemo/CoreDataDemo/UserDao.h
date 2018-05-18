@@ -22,26 +22,41 @@ typedef NS_ENUM(NSInteger, UserDao_MultithreadingPlan) {
     UserDao_MultithreadingPlan2
 };
 
-/// 用户dao
+/**
+ 用户模型dao类
+ */
 @interface UserDao : NSObject <DaoProtocol>
 
 @end
 
-/// 用户dao 使用多线程异步执行
+/**
+ 用户模型dao类 使用多线程
+ */
 @interface UserDao_Multithreading : UserDao
 
+/// 多线程方案
 @property (nonatomic, assign) UserDao_MultithreadingPlan plan;
 
 @end
 
-/// 用户dao 使用MagicalRecord
+/**
+ 用户模型dao类 使用MagicalRecord
+ */
 @interface UserDao_MR : UserDao
 
 @end
 
-/// 用户dao工厂
+/**
+ 用户模型dao工厂类
+ */
 @interface UserDaoFactory : NSObject
 
-+ (UserDao *)createWithType:(UserDaoType)type;
+/**
+ 创建用户模型Dao实例
+
+ @param type dao类型
+ @return dao实例
+ */
++ (UserDao *)produceUserDaoWithType:(UserDaoType)type;
 
 @end

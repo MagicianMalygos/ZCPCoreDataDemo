@@ -39,24 +39,24 @@
     NSString *userName  = self.userNameTextField.text;
     if (userID.length == 0 || userName.length == 0) return;
     
-//    [self.dao createWithParams:@{@"id": userID, @"name": userName} completion:^(NSError *error) {
-//        if (error) {
-//            NSLog(@"添加失败, error:%@", error);
-//        }
-//    }];
-    
-    NSMutableArray *arr = [NSMutableArray array];
-    for (int i = 0; i < 1000; i++) {
-        userID = [NSString stringWithFormat:@"%i", i];
-        userName = [NSString stringWithFormat:@"名字%i", i];
-//        [arr addObject:@{@"id": userID, @"name": userName}];
-        [arr addObject:@{@"id": @"111", @"name": @"aaa"}];
-    }
-    [self.dao createWithArray:arr completion:^(NSError *error) {
+    [self.dao createWithParams:@{@"id": userID, @"name": userName} completion:^(NSError *error) {
         if (error) {
             NSLog(@"添加失败, error:%@", error);
         }
     }];
+    
+//    NSMutableArray *arr = [NSMutableArray array];
+//    for (int i = 0; i < 1000; i++) {
+//        userID = [NSString stringWithFormat:@"%i", i];
+//        userName = [NSString stringWithFormat:@"名字%i", i];
+////        [arr addObject:@{@"id": userID, @"name": userName}];
+//        [arr addObject:@{@"id": @"111", @"name": @"aaa"}];
+//    }
+//    [self.dao createWithArray:arr completion:^(NSError *error) {
+//        if (error) {
+//            NSLog(@"添加失败, error:%@", error);
+//        }
+//    }];
 }
 
 - (IBAction)clickDeleteButton {
@@ -136,7 +136,7 @@
 
 - (UserDao *)dao {
     if (!_dao) {
-        _dao = [UserDaoFactory createWithType:UserDaoMultithreading];
+        _dao = [UserDaoFactory produceUserDaoWithType:UserDaoMultithreading];
     }
     return _dao;
 }

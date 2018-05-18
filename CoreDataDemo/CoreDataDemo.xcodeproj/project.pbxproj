@@ -17,7 +17,6 @@
 		FBCED8C520A58EC80019D27C /* CoreDataDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FBCED8C420A58EC80019D27C /* CoreDataDemoTests.m */; };
 		FBCED8D120A58F610019D27C /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FBCED8D020A58F610019D27C /* CoreDataManager.m */; };
 		FBCED8D420A96CA20019D27C /* UserDao.m in Sources */ = {isa = PBXBuildFile; fileRef = FBCED8D320A96CA20019D27C /* UserDao.m */; };
-		FBD59FD320AD2822001B2841 /* NSManagedObjectContext+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD59FD220AD2822001B2841 /* NSManagedObjectContext+Category.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,8 +50,6 @@
 		FBCED8D320A96CA20019D27C /* UserDao.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserDao.m; sourceTree = "<group>"; };
 		FBCED8D520A96D140019D27C /* DaoProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DaoProtocol.h; sourceTree = "<group>"; };
 		FBD59FD020AA8DEA001B2841 /* note.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = note.h; sourceTree = "<group>"; };
-		FBD59FD120AD2822001B2841 /* NSManagedObjectContext+Category.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+Category.h"; sourceTree = "<group>"; };
-		FBD59FD220AD2822001B2841 /* NSManagedObjectContext+Category.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+Category.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,8 +91,6 @@
 		FBCED8A720A58EC70019D27C /* CoreDataDemo */ = {
 			isa = PBXGroup;
 			children = (
-				FBD59FD120AD2822001B2841 /* NSManagedObjectContext+Category.h */,
-				FBD59FD220AD2822001B2841 /* NSManagedObjectContext+Category.m */,
 				FBCED8CF20A58F610019D27C /* CoreDataManager.h */,
 				FBCED8D020A58F610019D27C /* CoreDataManager.m */,
 				FBCED8D220A96CA20019D27C /* UserDao.h */,
@@ -227,7 +222,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FBD59FD320AD2822001B2841 /* NSManagedObjectContext+Category.m in Sources */,
 				FBCED8AD20A58EC80019D27C /* ViewController.m in Sources */,
 				FBCED8D420A96CA20019D27C /* UserDao.m in Sources */,
 				FBCED8B320A58EC80019D27C /* CoreDataDemo.xcdatamodeld in Sources */,

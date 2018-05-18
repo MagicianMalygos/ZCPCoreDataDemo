@@ -491,7 +491,7 @@
 
 @implementation UserDaoFactory
 
-+ (UserDao *)createWithType:(UserDaoType)type {
++ (UserDao *)produceUserDaoWithType:(UserDaoType)type {
     UserDao *dao = nil;
     switch (type) {
         case UserDaoDefault: {
