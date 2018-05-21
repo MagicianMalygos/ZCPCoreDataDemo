@@ -20,13 +20,23 @@
 
 @implementation CoreDataManager
 
+#pragma mark - life cycle
+
 - (instancetype)init {
     if (self = [super init]) {
         [self.moc description];
         self.workingMOCArr = [NSPointerArray weakObjectsPointerArray];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(contextDidSave:) name:NSManagedObjectContextDidSaveNotification object:nil];
     }
     return self;
 }
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark - Common
 
 - (NSManagedObjectModel *)mom {
     if (!_mom) {
@@ -98,7 +108,6 @@
 - (NSManagedObjectContext *)createPrivateMOC_Plan1 {
     NSManagedObjectContext *privateMOC = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
     [privateMOC setPersistentStoreCoordinator:self.psc];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(contextDidSave:) name:NSManagedObjectContextDidSaveNotification object:nil];
     
     // just for test
     [self.workingMOCArr addPointer:(__bridge void * _Nullable)(privateMOC)];
@@ -118,7 +127,9 @@
         [self.mainMOC_Plan1 mergeChangesFromContextDidSaveNotification:notification];
     } else {
         for (NSManagedObjectContext *context in self.workingMOCArr) {
-            [context mergeChangesFromContextDidSaveNotification:notification];
+            if (context != saveContext) {
+                [context mergeChangesFromContextDidSaveNotification:notification];
+            }
         }
     }
 }
