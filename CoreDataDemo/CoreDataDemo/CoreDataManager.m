@@ -8,11 +8,22 @@
 
 #import "CoreDataManager.h"
 
+@interface CoreDataManager ()
+
+/**
+ 为了研究使用后的moc是否会被正常销毁。
+ 发现MR也没有销毁创建的私有moc，为何销毁不掉的原因还未知...
+ */
+@property (nonatomic, strong) NSPointerArray *workingMOCArr;
+
+@end
+
 @implementation CoreDataManager
 
 - (instancetype)init {
     if (self = [super init]) {
         [self.moc description];
+        self.workingMOCArr = [NSPointerArray weakObjectsPointerArray];
     }
     return self;
 }
@@ -87,16 +98,30 @@
 - (NSManagedObjectContext *)createPrivateMOC_Plan1 {
     NSManagedObjectContext *privateMOC = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
     [privateMOC setPersistentStoreCoordinator:self.psc];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(contextDidSave:) name:NSManagedObjectContextDidSaveNotification object:privateMOC];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(contextDidSave:) name:NSManagedObjectContextDidSaveNotification object:nil];
+    
+    // just for test
+    [self.workingMOCArr addPointer:(__bridge void * _Nullable)(privateMOC)];
     return privateMOC;
 }
 
-//- (void)contextDidSave:(NSNotification *)notification {
-//    id object = notification.object;
-//    if (object == self.mainMOC_Plan1) {
-//        [self.mainMOC_Plan1 mergeChangesFromContextDidSaveNotification:notification];
-//    }
-//}
+- (void)contextDidSave:(NSNotification *)notification {
+    if (![NSThread isMainThread]) {
+        [self performSelectorOnMainThread:@selector(contextDidSave:) withObject:notification waitUntilDone:YES];
+        return;
+    }
+    
+    NSManagedObjectContext *saveContext = notification.object;
+    if (saveContext.persistentStoreCoordinator != self.psc) return;
+    
+    if (saveContext == self.mainMOC_Plan1) {
+        [self.mainMOC_Plan1 mergeChangesFromContextDidSaveNotification:notification];
+    } else {
+        for (NSManagedObjectContext *context in self.workingMOCArr) {
+            [context mergeChangesFromContextDidSaveNotification:notification];
+        }
+    }
+}
 
 #pragma mark - Multithreading Plan 2
 

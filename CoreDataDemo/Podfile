@@ -1,0 +1,8 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'CoreDataDemo' do
+
+pod 'MagicalRecord', '~> 2.3.2'
+
+end
