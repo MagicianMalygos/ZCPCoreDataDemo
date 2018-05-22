@@ -27,6 +27,11 @@ typedef NS_ENUM(NSInteger, UserDao_MultithreadingPlan) {
  */
 @interface UserDao : NSObject <DaoProtocol>
 
+/**
+ 测试方法
+ */
+- (void)justForTest;
+
 @end
 
 /**
@@ -43,12 +48,6 @@ typedef NS_ENUM(NSInteger, UserDao_MultithreadingPlan) {
  用户模型dao类 使用MagicalRecord
  */
 @interface UserDao_MR : UserDao
-
-/**
- 为了研究使用后的moc是否会被正常销毁。
- 发现MR也没有销毁创建的私有moc，为何销毁不掉的原因还未知...
- */
-@property (nonatomic, strong) NSPointerArray *workingMOCArr;
 
 @end
 

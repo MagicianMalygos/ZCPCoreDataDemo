@@ -125,6 +125,11 @@
     }];
 }
 
+- (IBAction)clickTestButton {
+    [self.dao justForTest];
+}
+
+
 #pragma mark - getters and setters
 
 - (CoreDataManager *)manager {
@@ -136,7 +141,7 @@
 
 - (UserDao *)dao {
     if (!_dao) {
-        _dao = [UserDaoFactory produceUserDaoWithType:UserDaoMultithreading];
+        _dao = [UserDaoFactory produceUserDaoWithType:UserDaoMR];
     }
     return _dao;
 }

@@ -120,6 +120,17 @@
                                     <action selector="clickRetrieveAllButton" destination="BYZ-38-t0r" eventType="touchUpInside" id="Hy3-ON-9ct"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oqj-Rw-cf8">
+                                <rect key="frame" x="16" y="414" width="95" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="95" id="ap7-vp-4SI"/>
+                                    <constraint firstAttribute="height" constant="30" id="fQU-kx-9HZ"/>
+                                </constraints>
+                                <state key="normal" title="测试按钮"/>
+                                <connections>
+                                    <action selector="clickTestButton" destination="BYZ-38-t0r" eventType="touchUpInside" id="Qmq-L6-DCJ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -133,11 +144,13 @@
                             <constraint firstItem="QD9-DN-ReD" firstAttribute="top" secondItem="tfI-Hb-UpL" secondAttribute="top" id="PER-61-dwA"/>
                             <constraint firstItem="a37-sh-IlK" firstAttribute="top" secondItem="VrK-PQ-1II" secondAttribute="top" id="PYF-PA-UPE"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="QD9-DN-ReD" secondAttribute="trailing" constant="16" id="Phb-co-3ys"/>
+                            <constraint firstItem="oqj-Rw-cf8" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="PtR-ly-D96"/>
                             <constraint firstItem="YQe-WP-Yyp" firstAttribute="top" secondItem="k2c-xM-T8M" secondAttribute="bottom" constant="16" id="ShD-dz-8Pz"/>
                             <constraint firstItem="VrK-PQ-1II" firstAttribute="top" secondItem="YQe-WP-Yyp" secondAttribute="bottom" constant="16" id="UDD-7i-gv5"/>
                             <constraint firstItem="k2c-xM-T8M" firstAttribute="top" secondItem="k5e-1G-DhU" secondAttribute="bottom" constant="80" id="VMz-GH-Y2q"/>
                             <constraint firstItem="7Pq-ut-Yaa" firstAttribute="top" secondItem="k2c-xM-T8M" secondAttribute="top" id="Vir-d5-bIR"/>
                             <constraint firstItem="tfI-Hb-UpL" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="100" id="YXS-40-BlL"/>
+                            <constraint firstItem="oqj-Rw-cf8" firstAttribute="top" secondItem="VrK-PQ-1II" secondAttribute="bottom" constant="16" id="cwc-Jl-sWI"/>
                             <constraint firstItem="hvP-6Q-L6z" firstAttribute="top" secondItem="QD9-DN-ReD" secondAttribute="bottom" constant="16" id="ecO-KQ-cnD"/>
                             <constraint firstItem="k2c-xM-T8M" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="gcX-GF-Eee"/>
                             <constraint firstItem="Ux2-rx-qXV" firstAttribute="leading" secondItem="YQe-WP-Yyp" secondAttribute="trailing" constant="16" id="hXH-8T-gkW"/>

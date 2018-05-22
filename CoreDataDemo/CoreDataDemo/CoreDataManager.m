@@ -12,9 +12,8 @@
 
 /**
  为了研究使用后的moc是否会被正常销毁。
- 发现MR也没有销毁创建的私有moc，为何销毁不掉的原因还未知...
  */
-@property (nonatomic, strong) NSPointerArray *workingMOCArr;
+@property (nonatomic, strong) NSHashTable *workingMOCArr;
 
 @end
 
@@ -25,8 +24,9 @@
 - (instancetype)init {
     if (self = [super init]) {
         [self.moc description];
-        self.workingMOCArr = [NSPointerArray weakObjectsPointerArray];
+        self.workingMOCArr = [NSHashTable weakObjectsHashTable];
         
+        // 监听上下文的保存动作，处理merge
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(contextDidSave:) name:NSManagedObjectContextDidSaveNotification object:nil];
     }
     return self;
@@ -110,18 +110,20 @@
     [privateMOC setPersistentStoreCoordinator:self.psc];
     
     // just for test
-    [self.workingMOCArr addPointer:(__bridge void * _Nullable)(privateMOC)];
+    [self.workingMOCArr addObject:privateMOC];
+    NSLog(@"%@ 加入工作", privateMOC);
     return privateMOC;
 }
 
 - (void)contextDidSave:(NSNotification *)notification {
-    if (![NSThread isMainThread]) {
-        [self performSelectorOnMainThread:@selector(contextDidSave:) withObject:notification waitUntilDone:YES];
-        return;
-    }
+//    if (![NSThread isMainThread]) {
+//        [self performSelectorOnMainThread:@selector(contextDidSave:) withObject:notification waitUntilDone:NO];
+//        return;
+//    }
     
     NSManagedObjectContext *saveContext = notification.object;
     if (saveContext.persistentStoreCoordinator != self.psc) return;
+    NSLog(@"%@ 保存完毕", saveContext);
     
     if (saveContext == self.mainMOC_Plan1) {
         [self.mainMOC_Plan1 mergeChangesFromContextDidSaveNotification:notification];
@@ -129,6 +131,7 @@
         for (NSManagedObjectContext *context in self.workingMOCArr) {
             if (context != saveContext) {
                 [context mergeChangesFromContextDidSaveNotification:notification];
+                NSLog(@"%@ 执行合并从 %@", context, saveContext);
             }
         }
     }
